@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="az">
 <head>
@@ -13,28 +12,6 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- UPGRADE: Multi-user passwordless Login Overlay -->
-  <div id="login-screen" class="login-overlay">
-    <div class="login-container">
-      <h1 class="login-title"><i class="fa-solid fa-graduation-cap"></i> Abituriyent İmtahan Generator AI</h1>
-      <p class="login-subtitle">Hazırlıq panelinə daxil olmaq üçün profilinizi seçin:</p>
-      <div class="profiles-grid">
-        <div class="profile-card muhammed-card" id="profile-muhammed">
-          <div class="profile-avatar"><i class="fa-solid fa-user-tie"></i></div>
-          <h3>Muhammed</h3>
-          <span class="profile-badge">5-ci Sinif</span>
-          <p class="profile-desc">Baza təhsil dövrü</p>
-        </div>
-        <div class="profile-card mashallah-card" id="profile-mashallah">
-          <div class="profile-avatar"><i class="fa-solid fa-user-graduate"></i></div>
-          <h3>Mashallah</h3>
-          <span class="profile-badge target">7-ci Sinif</span>
-          <p class="profile-desc">ADNSU (680 Bal) Hədəfi</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="app-container">
     
@@ -242,25 +219,62 @@
                   <button class="toggle-option" id="diff-hard">Çətin Səviyyə (Hard Mode)</button>
                 </div>
               </div>
-              
-              <button class="btn-premium" id="btn-start-exam">
-                <i class="fa-solid fa-bolt"></i> Yeni Sınaq Başlat (start)
-              </button>
+                  <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                      <label style="font-weight:700; color:var(--color-text-secondary);">Fənnlər:</label>
+                      <div id="filter-subjects" style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <label><input type="checkbox" name="filter-subject" value="Riyaziyyat" checked> Riyaziyyat</label>
+                        <label><input type="checkbox" name="filter-subject" value="Fizika" checked> Fizika</label>
+                        <label><input type="checkbox" name="filter-subject" value="Ingilis" checked> İngilis</label>
+                        <label><input type="checkbox" name="filter-subject" value="Informatika" checked> İnformatika</label>
+                        <label><input type="checkbox" name="filter-subject" value="Məntiq" checked> Məntiq</label>
+                      </div>
+                    </div>
+
+                    <div style="display:flex; gap:8px; align-items:center;">
+                      <label style="font-weight:700; color:var(--color-text-secondary);">Timer:</label>
+                      <select id="timer-select" style="background:transparent; border:1px solid rgba(255,255,255,0.06); padding:8px; border-radius:8px; color:#fff;">
+                        <option value="0">Sayılanmır (No timer)</option>
+                        <option value="600">10 dəq</option>
+                        <option value="1200" selected>20 dəq</option>
+                        <option value="1800">30 dəq</option>
+                        <option value="2400">40 dəq</option>
+                      </select>
+                    </div>
+
+                    <button class="btn-premium" id="btn-start-exam">
+                      <i class="fa-solid fa-bolt"></i> Yeni Sınaq Başlat (start)
+                    </button>
+                  </div>
             </div>
           </div>
 
           <!-- Active Exam Question Sheet -->
           <div id="exam-active-view" style="display: none;">
-            <div class="exam-controls" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+            <div class="exam-controls" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; align-items: center; gap: 12px; display: flex; justify-content: space-between; flex-wrap: wrap;">
               <div>
                 <span style="font-size: 0.95rem; color: var(--color-text-secondary);">Sınaq İmtahanı Aktivdir</span>
                 <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--neon-blue); margin-top: 4px;" id="exam-questions-counter">Hazırlanır...</h4>
               </div>
-              <div style="display: flex; gap: 10px;">
+              <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                <button class="btn-secondary-glow" id="btn-prev-question">Əvvəlki</button>
+                <span id="question-position-indicator" style="font-weight: 700; color: var(--color-text-primary);">0 / 0</span>
+                <button class="btn-secondary-glow" id="btn-next-question">Sonrakı</button>
                 <button class="btn-secondary-glow" id="btn-reset-exam">Yenidən Başlat</button>
                 <button class="btn-premium" id="btn-check-answers" style="background: linear-gradient(135deg, var(--neon-teal) 0%, var(--neon-blue) 100%);">
-                  <i class="fa-solid fa-square-poll-vertical"></i> Nəticəni Yoxla (check)
+                  <i class="fa-solid fa-square-poll-vertical"></i> Nəticəni Yoxla
                 </button>
+              </div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+              <div style="flex:1;">
+                <div style="height:10px; background: rgba(255,255,255,0.04); border-radius:20px; overflow:hidden;">
+                  <div id="exam-progress-fill" style="height:100%; width:0%; background: linear-gradient(90deg, var(--neon-teal), var(--neon-blue)); transition: width 0.4s ease;"></div>
+                </div>
+              </div>
+              <div style="min-width:120px; text-align:right; color:var(--color-text-secondary);">
+                <span id="exam-timer-display">—:—</span>
               </div>
             </div>
 
@@ -322,6 +336,21 @@
                 <!-- Doubtful questions review goes here -->
               </div>
             </div>
+          </div>
+
+          <div class="glass-card" style="margin-top: 30px; border: 1px solid rgba(255,255,255,0.08); background: rgba(13, 19, 44, 0.75);">
+            <div class="glass-card-title">
+              <span><i class="fa-solid fa-database" style="color: var(--neon-teal); margin-right: 10px;"></i> İmtahan və Yedəkləmə Sistemi</span>
+            </div>
+            <p style="color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 20px;">
+              İmtahan irəliləyişiniz avtomatik saxlanılır. Aşağıdakı bölümdən JSON formatında yedəkləmə və bərpa funksiyalarını istifadə edə bilərsiniz.
+            </p>
+            <div class="backup-actions" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+              <button class="btn-secondary-glow" id="btn-export-backup">Yedəklə</button>
+              <button class="btn-secondary-glow" id="btn-restore-backup">Bərpa et</button>
+              <button class="btn-delete" id="btn-clear-history">Tarixçəni Təmizlə</button>
+            </div>
+            <textarea id="backup-data-textarea" placeholder="Buraya JSON yedəkləmə mətni yapışdırın və ya ixrac olunmuş JSON-u bura baxın." rows="8" style="width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08); color: #fff; padding: 15px; border-radius: 12px; resize: vertical; font-family: inherit; font-size: 0.95rem;"></textarea>
           </div>
         </div>
       </div>
@@ -483,6 +512,7 @@
 
   <!-- Load Questions database -->
   <script src="questions.js"></script>
+  <script src="cache.js"></script>
   <!-- Concept Explanation Modal -->
   <div id="help-modal" class="modal-overlay" style="display: none;">
     <div class="modal-content">
