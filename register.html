@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qeydiyyat — ADNSU İmtahan Paneli</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="login-screen">
+    <section class="login-card">
+      <div class="login-brand">
+        <i class="fa-solid fa-user-plus"></i>
+        <div>
+          <h1>Qeydiyyat</h1>
+          <p>Yeni istifadəçi yaradın və sonra daxil olun.</p>
+        </div>
+      </div>
+
+      <form id="register-form" class="login-form">
+        <label for="reg-name">Ad Soyad</label>
+        <input id="reg-name" name="name" type="text" placeholder="Məmməd Əliyev" required>
+
+        <label for="reg-username">İstifadəçi adı</label>
+        <input id="reg-username" name="username" type="text" placeholder="mammad" required>
+
+        <label for="reg-password">Şifrə</label>
+        <input id="reg-password" name="password" type="password" placeholder="******" required>
+
+        <label for="reg-grade">Sinif</label>
+        <select id="reg-grade" name="grade">
+          <option value="5">5-ci Sinif</option>
+          <option value="6">6-cı Sinif</option>
+          <option value="7" selected>7-ci Sinif</option>
+          <option value="8">8-ci Sinif</option>
+          <option value="9">9-cu Sinif</option>
+          <option value="10">10-cu Sinif</option>
+          <option value="11">11-ci Sinif</option>
+        </select>
+
+        <label for="reg-type">İstifadəçi tipi</label>
+        <select id="reg-type" name="type">
+          <option value="student" selected>Abituriyent</option>
+          <option value="teacher">Müəllim</option>
+        </select>
+
+        <button type="submit" class="btn-premium">Qeydiyyatdan Keç</button>
+      </form>
+
+      <div class="login-hint">
+        <p>Hesabınız varsa, <a href="login.html" style="color:var(--neon-teal);">daxil olun</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function loadUsers(){
+      try{ return JSON.parse(localStorage.getItem('users_list')||'[]'); }catch(e){ return []; }
+    }
+    function saveUsers(list){ localStorage.setItem('users_list', JSON.stringify(list)); }
+
+    const form = document.getElementById('register-form');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const username = document.getElementById('reg-username').value.trim();
+      const password = document.getElementById('reg-password').value.trim();
+      const grade = document.getElementById('reg-grade').value;
+      const type = document.getElementById('reg-type').value;
+
+      if(!name||!username||!password){ alert('Bütün sahələri doldurun'); return; }
+
+      const users = loadUsers();
+      if(users.find(u=>u.username.toLowerCase()===username.toLowerCase())){ alert('Bu istifadəçi adı artıq mövcuddur'); return; }
+
+      users.push({ name, username, password, grade: parseInt(grade,10), type, createdAt: Date.now() });
+      saveUsers(users);
+      alert('Qeydiyyat tamamlandı. İndi daxil olun.');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

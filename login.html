@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADNSU İmtahan Paneli - Daxil ol</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="login-screen">
+    <section class="login-card">
+      <div class="login-brand">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <div>
+          <h1>ADNSU İmtahan Paneli</h1>
+          <p>Panelə giriş üçün istifadəçi adı və şifrənizi daxil edin.</p>
+        </div>
+      </div>
+      <form id="login-form" class="login-form">
+        <label for="login-username">İstifadəçi adı</label>
+        <input id="login-username" name="username" type="text" autocomplete="username" placeholder="Muhammed" required>
+
+        <label for="login-password">Şifrə</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="********" required>
+
+        <button type="submit" class="btn-premium login-submit">Daxil ol</button>
+      </form>
+
+      <div class="login-hint">
+        <strong>Test istifadəçilər:</strong>
+        <p><span class="hint-user">Muhammed</span> / <span class="hint-pass">muhammed123</span></p>
+        <p><span class="hint-user">Mashallah</span> / <span class="hint-pass">mashallah123</span></p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const validUsers = {
+      Muhammed: 'muhammed123',
+      Mashallah: 'mashallah123'
+    };
+
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const usernameInput = document.getElementById('login-username');
+      const passwordInput = document.getElementById('login-password');
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      if (!username || !password) {
+        alert('İstifadəçi adı və şifrə boş buraxıla bilməz.');
+        return;
+      }
+
+      if (!validUsers[username] || validUsers[username] !== password) {
+        alert('Yanlış istifadəçi adı və ya şifrə.');
+        return;
+      }
+
+      localStorage.setItem('exam_app_user', username);
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
