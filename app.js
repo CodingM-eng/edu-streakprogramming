@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Only show alert if user manually changed (not during profile load)
         if (!isLoadingProfile) {
           if (userData.grade < 7) {
-            alert(`Sinif ${userData.grade}-yə dəyişdirildi. Aşağı siniflərdə Fizika və İnformatika tədris olunmadığı üçün sınaqlarda bu fənlər qıfıllanacaq və sualları digər fənlərə (Riyaziyyat, Ana dili, İngilis dili, Məntiq) adaptiv olaraq paylanacaq!`);
+            alert(`Sinif ${userData.grade}-yə dəyişdirildi. Aşağı siniflərdə Fizika və İnformatika tədris olunmadığı üçün sınaqlarda bu fənlər qıfıllanacaq və sualları digər fənlərdən seçiləcəkdir.`);
           } else {
             alert(`Sinif ${userData.grade}-yə dəyişdirildi. Fizika və İnformatika fənləri aktivdir. 1-ci qrup DİM paylanması qüvvədədir.`);
           }
@@ -1093,19 +1093,19 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (total >= 650) {
       faculty = "İnformasiya Texnologiyaları (Ödənişsiz)";
-      analysis = `Təbriklər! Mükəmməl baldır (<strong>${total} Bal</strong>). Bu göstərici ilə ADNSU-nun ən prestijli <strong>İT (Ödənişsiz)</strong> və ya ADA Universitetinin bir çox ixtisaslarına birbaşa qəbul ola bilərsiniz!`;
+      analysis = `Təbriklər! Mükəmməl baldır (<strong>${total} Bal</strong>). Bu göstərici ilə ADNSU-nun ən prestijli <strong>İT (Ödənişsiz)</strong> və ya ADA Universitetinin bir çox ixtisaslarında dövlət tələbəsi ola bilərsiz.`;
     } else if (total >= 600) {
       faculty = "Kompüter Mühəndisliyi (Ödənişsiz)";
-      analysis = `Əla nəticədir! (<strong>${total} Bal</strong>). ADNSU-nun <strong>Kompüter Mühəndisliyi</strong> və ya <strong>İnformasiya Təhlükəsizliyi</strong> ixtisaslarında dövlət sifarişli (ödənişsiz) oxuya bilərsiniz.`;
+      analysis = `Əla nəticədir! (<strong>${total} Bal</strong>). ADNSU-nun <strong>Kompüter Mühəndisliyi</strong> və ya <strong>İnformasiya Təhlükəsizliyi</strong> ixtisaslarında dövlət tələbəsi sifətində oxumaq şansınız çox yüksəkdir.`;
     } else if (total >= 500) {
       faculty = "Sistem Mühəndisliyi / Avtomatlaşdırma";
-      analysis = `Güclü nəticə! (<strong>${total} Bal</strong>). Bu balla ADNSU-da <strong>Cihazqayırma</strong>, <strong>Sistem Mühəndisliyi</strong> və ya <strong>Proseslərin Avtomatlaşdırılması</strong> kimi dövlət sifarişli mühəndislik ixtisaslarına qəbul ola bilərsiniz.`;
+      analysis = `Güclü nəticə! (<strong>${total} Bal</strong>). Bu balla ADNSU-da <strong>Cihazqayırma</strong>, <strong>Sistem Mühəndisliyi</strong> və ya <strong>Proseslərin Avtomatlaşdırılması</strong> ixtisaslarında qəbul ola bilərsiz.`;
     } else if (total >= 400) {
       faculty = "Neft-Qaz Mühəndisliyi / Mexanika";
-      analysis = `Qənaətbəxş bal. (<strong>${total} Bal</strong>). ADNSU-nun ənənəvi ən güclü sahəsi olan <strong>Neft-Qaz Mühəndisliyi</strong>, <strong>Mexanika Mühəndisliyi</strong> və ya <strong>Elektroenergetika</strong> ixtisaslarında dövlət sifarişli oxuma şansınız var.`;
+      analysis = `Qənaətbəxş bal. (<strong>${total} Bal</strong>). ADNSU-nun ənənəvi ən güclü sahəsi olan <strong>Neft-Qaz Mühəndisliyi</strong>, <strong>Mexanika Mühəndisliyi</strong> və ya <strong>Kimya Texnologiyası</strong> ixtisaslarında qəbul edilmə ehtimalınız vardır.`;
     } else if (total >= 200) {
       faculty = "Geologiya Mühəndisliyi / Ekologiya";
-      analysis = `Keçid balını aşmısınız (<strong>${total} Bal</strong>). ADNSU-da <strong>Geofizika</strong>, <strong>Ekologiya</strong> və ya ödənişli əsaslarla digər mühəndislik sahələrinə daxil olmaq olar. Hədəfinizə uyğun balları artırmaq üçün sınaqlarda səhvlərinizi təkrar edin.`;
+      analysis = `Keçid balını aşmısınız (<strong>${total} Bal</strong>). ADNSU-da <strong>Geofizika</strong>, <strong>Ekologiya</strong> və ya ödənişli əsaslarla digər mühəndislik sahələrində yer ala bilərsiz.`;
     }
 
     calcFacultyTier.textContent = faculty;
