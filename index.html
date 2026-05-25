@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADNSU 1-ci Qrup Hazırlıq Paneli — Abituriyent İmtahan Generator AI</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- UPGRADE: Multi-user passwordless Login Overlay -->
+  <div id="login-screen" class="login-overlay">
+    <div class="login-container">
+      <h1 class="login-title"><i class="fa-solid fa-graduation-cap"></i> Abituriyent İmtahan Generator AI</h1>
+      <p class="login-subtitle">Hazırlıq panelinə daxil olmaq üçün profilinizi seçin:</p>
+      <div class="profiles-grid">
+        <div class="profile-card muhammed-card" id="profile-muhammed">
+          <div class="profile-avatar"><i class="fa-solid fa-user-tie"></i></div>
+          <h3>Muhammed</h3>
+          <span class="profile-badge">5-ci Sinif</span>
+          <p class="profile-desc">Baza təhsil dövrü</p>
+        </div>
+        <div class="profile-card mashallah-card" id="profile-mashallah">
+          <div class="profile-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+          <h3>Mashallah</h3>
+          <span class="profile-badge target">7-ci Sinif</span>
+          <p class="profile-desc">ADNSU (680 Bal) Hədəfi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="logo-section">
+          <div class="logo-icon">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="logo-text">
+            <h2>ADNSU AI</h2>
+            <p>1-ci Qrup Hazırlıq</p>
+          </div>
+        </div>
+        
+        <ul class="nav-links">
+          <li class="nav-item">
+            <button class="nav-btn active" data-tab="exam-tab">
+              <i class="fa-solid fa-circle-play"></i>
+              <span>Sınaq İmtahanı</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="roadmap-tab">
+              <i class="fa-solid fa-map-location-dot"></i>
+              <span>Riyaziyyat Yol Xəritəsi</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="plan-tab">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span>Gündəlik Plan</span>
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-btn" data-tab="calc-tab">
+              <i class="fa-solid fa-calculator"></i>
+              <span>ADNSU Kalkulyatoru</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="sidebar-footer">
+        <!-- UPGRADE: Sidebar Switch Profile Widget -->
+        <div class="active-user-widget" id="sidebar-user-widget" style="margin-bottom: 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: var(--border-radius-sm); padding: 10px; display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-circle-user" id="sidebar-user-avatar-color" style="color: var(--neon-teal);"></i>
+            <span style="font-size: 0.85rem; font-weight: 700;" id="sidebar-active-user-name">Giriş edilməyib</span>
+          </div>
+          <button id="btn-logout" title="İstifadəçini Dəyiş" style="background: transparent; border: none; cursor: pointer; color: var(--neon-rose); padding: 2px 6px; font-size: 0.95rem; transition: var(--transition-smooth);"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+        <p>© 2026 Elite Exam Sim AI</p>
+        <p>Hədəf: 680+ Bal</p>
+      </div>
+    </aside>
+
+    <!-- Main Content Panel -->
+    <main class="main-content">
+      
+      <!-- Top Dashboard Header -->
+      <header class="header-dashboard">
+        <div class="welcome-msg">
+          <h1 id="dynamic-greeting">Xoş Gəldin, Abituriyent!</h1>
+          <p>ADNSU hazırlıq planına əsasən bugünkü inkişaf göstəricilərin:</p>
+        </div>
+        
+        <div class="target-badge">
+          <i class="fa-solid fa-award"></i>
+          <span>Hədəf: ADNSU (650–680 Bal)</span>
+        </div>
+
+        <!-- UPGRADE: Custom Class/Grade Selector Menu -->
+        <div class="class-selector-wrapper" style="background: var(--glass-surface); border: 1px solid var(--glass-border); border-radius: 50px; padding: 4px 15px; display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 0.85rem; color: var(--color-text-secondary); font-weight: 600;">Sinif:</span>
+          <select class="class-select-dropdown" id="header-class-selector" style="background: transparent; border: none; color: var(--neon-teal); font-weight: 700; outline: none; cursor: pointer;">
+            <option value="1" style="background: var(--bg-secondary); color: #fff;">1-ci Sinif</option>
+            <option value="2" style="background: var(--bg-secondary); color: #fff;">2-ci Sinif</option>
+            <option value="3" style="background: var(--bg-secondary); color: #fff;">3-cü Sinif</option>
+            <option value="4" style="background: var(--bg-secondary); color: #fff;">4-cü Sinif</option>
+            <option value="5" style="background: var(--bg-secondary); color: #fff;">5-ci Sinif</option>
+            <option value="6" style="background: var(--bg-secondary); color: #fff;">6-cı Sinif</option>
+            <option value="7" style="background: var(--bg-secondary); color: #fff;">7-ci Sinif</option>
+            <option value="8" style="background: var(--bg-secondary); color: #fff;">8-ci Sinif</option>
+            <option value="9" style="background: var(--bg-secondary); color: #fff;">9-cu Sinif</option>
+            <option value="10" style="background: var(--bg-secondary); color: #fff;">10-cu Sinif</option>
+            <option value="11" style="background: var(--bg-secondary); color: #fff;">11-ci Sinif</option>
+          </select>
+        </div>
+      </header>
+
+      <!-- Dashboard Summary Stats Row -->
+      <section class="summary-grid">
+        <div class="summary-card">
+          <div class="card-header-summary">
+            <span class="card-title">İmtahan sayı</span>
+            <i class="fa-solid fa-file-signature card-icon"></i>
+          </div>
+          <div class="card-value" id="stats-total-exams">0</div>
+          <div class="card-trend">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Sınaq simulyasiyası</span>
+          </div>
+        </div>
+        
+        <div class="summary-card">
+          <div class="card-header-summary">
+            <span class="card-title">Ortalama Bal</span>
+            <i class="fa-solid fa-star-half-stroke card-icon" style="color: var(--neon-amber);"></i>
+          </div>
+          <div class="card-value" id="stats-avg-score">0%</div>
+          <div class="card-trend" id="stats-avg-level">
+            <span>Səviyyə: Yoxdur</span>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="card-header-summary">
+            <span class="card-title">Riyaziyyat Tərəqqisi</span>
+            <i class="fa-solid fa-compass-drafting card-icon" style="color: var(--neon-teal);"></i>
+          </div>
+          <div class="card-value" id="stats-math-progress">0%</div>
+          <div class="card-trend">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <span>Mövzu tamamlanması</span>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="card-header-summary">
+            <span class="card-title">Gündəlik Tapşırıqlar</span>
+            <i class="fa-solid fa-list-check card-icon" style="color: var(--neon-rose);"></i>
+          </div>
+          <div class="card-value" id="stats-daily-tasks">0%</div>
+          <div class="card-trend">
+            <i class="fa-solid fa-calendar-day"></i>
+            <span>Həftəlik hədəf statusu</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 1: SINAQ İMTAHANI (EXAM GENERATOR) -->
+      <div id="exam-tab" class="tab-view active">
+        <!-- UPGRADE: Global Comparative Scoreboard -->
+        <div class="glass-card" style="border-color: rgba(255,255,255,0.05); background: rgba(12,17,38,0.4); margin-bottom: 25px; padding: 20px 24px;">
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 15px; color: var(--neon-blue); display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-chart-simple"></i> Ümumi Liderlər Cədvəli (Muhammed vs Mashallah)
+          </h3>
+          <div class="scoreboard-grid">
+            <div class="scoreboard-col" id="score-col-muhammed" style="flex: 1; padding: 10px 15px;">
+              <div class="scoreboard-user-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <i class="fa-solid fa-circle-user" style="color: var(--neon-blue); font-size: 1.1rem;"></i>
+                <strong style="font-size: 0.95rem;">Muhammed (5-ci Sinif)</strong>
+              </div>
+              <div class="scoreboard-stats-row" style="font-size: 0.9rem; color: var(--color-text-secondary); display: flex; gap: 20px;">
+                <div>Son İmtahan: <span id="board-score-muhammed" style="color: var(--neon-blue); font-weight: 700;">Yoxdur</span></div>
+                <div>Orta Bal: <span id="board-avg-muhammed" style="color: var(--neon-teal); font-weight: 700;">Yoxdur</span></div>
+              </div>
+            </div>
+            
+            <div class="scoreboard-col" id="score-col-mashallah" style="flex: 1; padding: 10px 15px; border-left: 1px solid rgba(255,255,255,0.08);">
+              <div class="scoreboard-user-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <i class="fa-solid fa-circle-user" style="color: var(--neon-amber); font-size: 1.1rem;"></i>
+                <strong style="font-size: 0.95rem;">Mashallah (7-ci Sinif)</strong>
+              </div>
+              <div class="scoreboard-stats-row" style="font-size: 0.9rem; color: var(--color-text-secondary); display: flex; flex-direction: column; gap: 5px;">
+                <div style="display: flex; gap: 20px;">
+                  <div>Son İmtahan: <span id="board-score-mashallah" style="color: var(--neon-amber); font-weight: 700;">Yoxdur</span></div>
+                  <div>Orta Bal: <span id="board-avg-mashallah" style="color: var(--neon-teal); font-weight: 700;">Yoxdur</span></div>
+                </div>
+                <div style="width: 100%; margin-top: 5px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 3px;">
+                    <span>ADNSU Hədəf Tərəqqisi:</span>
+                    <span id="board-pct-mashallah" style="color: var(--neon-amber); font-weight: 600;">0%</span>
+                  </div>
+                  <div class="analysis-bar-container" style="height: 6px;">
+                    <div class="analysis-bar-fill" id="board-fill-mashallah" style="background: var(--neon-amber); width: 0%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <div class="glass-card-title">
+            <span><i class="fa-solid fa-microchip" style="color: var(--neon-blue); margin-right: 10px;"></i> DİM Formatında Qarışıq Sınaq Simulyatoru</span>
+            <span class="target-badge" id="exam-status-badge" style="display: none; border-color: var(--neon-teal); color: var(--neon-teal);">İmtahan Davam Edir</span>
+          </div>
+
+          <!-- Default Welcome / Setup screen -->
+          <div id="exam-setup-view">
+            <p style="color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 25px;">
+              Bu simulyator, Dövlət İmtahan Mərkəzinin (DİM) yeni 1-ci ixtisas qrupu fənn sisteminə uyğun olaraq hazırlanmışdır. 
+              <strong>Kimya fənni çıxarılmış, yerinə İnformatika və Məntiq fənləri əlavə edilmişdir.</strong>
+              Hər start düyməsinə kliklədiyinizdə fənn paylanması qorunaraq 20 tamamilə qarışıq və unikal test sualı yaradılacaqdır.
+            </p>
+            
+            <div class="exam-controls">
+              <div class="difficulty-toggle-wrapper">
+                <span style="font-size: 0.9rem; font-weight: 600; color: var(--color-text-secondary); margin-right: 15px;">Çətinlik Dərəcəsi:</span>
+                <div class="difficulty-toggle">
+                  <button class="toggle-option active" id="diff-normal">Normal Səviyyə</button>
+                  <button class="toggle-option" id="diff-hard">Çətin Səviyyə (Hard Mode)</button>
+                </div>
+              </div>
+              
+              <button class="btn-premium" id="btn-start-exam">
+                <i class="fa-solid fa-bolt"></i> Yeni Sınaq Başlat (start)
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Exam Question Sheet -->
+          <div id="exam-active-view" style="display: none;">
+            <div class="exam-controls" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px;">
+              <div>
+                <span style="font-size: 0.95rem; color: var(--color-text-secondary);">Sınaq İmtahanı Aktivdir</span>
+                <h4 style="font-size: 1.15rem; font-weight: 700; color: var(--neon-blue); margin-top: 4px;" id="exam-questions-counter">Hazırlanır...</h4>
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <button class="btn-secondary-glow" id="btn-reset-exam">Yenidən Başlat</button>
+                <button class="btn-premium" id="btn-check-answers" style="background: linear-gradient(135deg, var(--neon-teal) 0%, var(--neon-blue) 100%);">
+                  <i class="fa-solid fa-square-poll-vertical"></i> Nəticəni Yoxla (check)
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Question List Insertion Point -->
+            <div class="questions-list" id="active-questions-list"></div>
+          </div>
+
+          <!-- Post-Grading Score Card & Mistake Review -->
+          <div id="exam-results-view" style="display: none;">
+            <div class="glass-card-title" style="border-color: var(--neon-teal);">
+              <span><i class="fa-solid fa-square-poll-vertical" style="color: var(--neon-teal); margin-right: 10px;"></i> Sınaq Nəticələriniz</span>
+              <button class="btn-premium" id="btn-restart-setup">
+                <i class="fa-solid fa-arrow-rotate-right"></i> Yeni İmtahana Başla
+              </button>
+            </div>
+
+            <div class="score-summary-panel">
+              <div class="score-circular-container">
+                <div class="circular-progress" id="results-circle">
+                  <div class="score-text-inside" id="results-percent-display">
+                    0%
+                    <span>NƏTİCƏ</span>
+                  </div>
+                </div>
+                <h3 class="score-grade-label" id="results-grade-label">Zəif</h3>
+                <p style="font-size: 0.85rem; color: var(--color-text-secondary);" id="results-raw-score">0 / 20 düzgün cavab</p>
+              </div>
+
+              <div class="subject-analysis-box">
+                <h4 class="analysis-title">Fənnlər Üzrə Analiz</h4>
+                <div class="analysis-list" id="results-subject-analysis-list">
+                  <!-- Subject bars dynamically injected -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Incorrect Answers Step-by-Step solutions -->
+            <div class="glass-card" style="margin-top: 30px; border-color: rgba(255,255,255,0.05); background: rgba(6, 10, 25, 0.4);">
+              <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; color: var(--neon-amber);">
+                <i class="fa-solid fa-circle-info" style="margin-right: 10px;"></i> Səhvlərin İzahı və Təhlili (mistake)
+              </h3>
+              <p style="color: var(--color-text-secondary); font-size: 0.9rem; margin-bottom: 20px;" id="results-mistake-intro">
+                Aşağıda səhv etdiyiniz sualların və ya boş buraxdığınız tapşırıqların ətraflı addım-addım həlləri təqdim edilmişdir.
+              </p>
+              <div class="questions-list" id="graded-mistakes-review-list">
+                <!-- Incorrect questions review goes here -->
+              </div>
+            </div>
+
+            <!-- Doubtful Questions marked "Əmin deyiləm" -->
+            <div class="glass-card" style="margin-top: 30px; border-color: rgba(255, 195, 0, 0.2); background: rgba(12, 17, 38, 0.4);" id="review-questions-box">
+              <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; color: var(--neon-amber);">
+                <i class="fa-solid fa-bookmark" style="margin-right: 10px;"></i> Şübhəli Suallar (Əmin deyiləm)
+              </h3>
+              <p style="color: var(--color-text-secondary); font-size: 0.9rem; margin-bottom: 20px;">
+                İmtahan zamanı "Əmin deyiləm" olaraq işarələdiyiniz suallar aşağıda siyahılanmışdır. Onları yenidən analiz edib cavablandıra bilərsiniz.
+              </p>
+              <div class="questions-list" id="graded-review-review-list">
+                <!-- Doubtful questions review goes here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: RİYAZİYYAT YOL XƏRİTƏSİ (MATHEMATICS ROADMAP) -->
+      <div id="roadmap-tab" class="tab-view">
+        <div class="glass-card">
+          <div class="glass-card-title">
+            <span><i class="fa-solid fa-map-location-dot" style="color: var(--neon-blue); margin-right: 10px;"></i> Riyaziyyat Fənni Yol Xəritəsi</span>
+            <div class="target-badge" style="border-color: var(--neon-teal); color: var(--neon-teal);">
+              <span id="roadmap-global-progress">Tərəqqi: 0%</span>
+            </div>
+          </div>
+          
+          <p style="color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 30px; font-size: 0.95rem;">
+            7-ci sinifdən 11-ci sinif buraxılış və blok imtahanına qədər bütün DİM Riyaziyyat mövzuları aşağıda ardıcıllıqla verilmişdir. 
+            Mənimsədiyiniz mövzuları qeyd edin və tərəqqinizi real vaxt rejimində izləyin. Məlumatlar avtomatik yadda saxlanılır!
+          </p>
+
+          <div class="roadmap-timeline" id="roadmap-timeline-container">
+            <!-- Timeline elements dynamically injected -->
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: GÜNDƏLİK PLAN (DAILY STUDY PLAN) -->
+      <div id="plan-tab" class="tab-view">
+        <div class="glass-card">
+          <div class="glass-card-title">
+            <span><i class="fa-solid fa-calendar-check" style="color: var(--neon-blue); margin-right: 10px;"></i> Gündəlik və Siniflər Üzrə Dərs Planı</span>
+            <div class="target-badge" style="border-color: var(--neon-teal); color: var(--neon-teal);">
+              <span id="plan-global-progress">Tamamlanma: 0%</span>
+            </div>
+          </div>
+
+          <p style="color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 25px; font-size: 0.95rem;">
+            650–680 bal toplamaq sistemli işləməkdən asılıdır. Hər yaş/sinif qrupuna uyğun olaraq sizə təqdim etdiyimiz 
+            hazırlıq addımlarını edin. Gündəlik fəaliyyətlərinizi yoxlayaraq sistemli hərəkət edin.
+          </p>
+
+          <div class="plan-tabs">
+            <button class="plan-tab-btn active" data-plan="plan-7-8">7–8-ci Sinif (Baza dövrü)</button>
+            <button class="plan-tab-btn" data-plan="plan-9">9-cu Sinif (Buraxılış ili)</button>
+            <button class="plan-tab-btn" data-plan="plan-10-11">10–11-ci Sinif (1-ci qrup blok)</button>
+          </div>
+
+          <!-- Dynamic Study checklist insertion containers -->
+          <div class="plan-list-section active" id="plan-7-8">
+            <!-- Dynamically populated -->
+          </div>
+          <div class="plan-list-section" id="plan-9">
+            <!-- Dynamically populated -->
+          </div>
+          <div class="plan-list-section" id="plan-10-11">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 4: ADNSU KALKULYATORU (TARGET CALCULATOR) -->
+      <div id="calc-tab" class="tab-view">
+        <div class="glass-card">
+          <div class="glass-card-title">
+            <span><i class="fa-solid fa-calculator" style="color: var(--neon-blue); margin-right: 10px;"></i> ADNSU Hədəf və Bal Kalkulyatoru (700 bal)</span>
+          </div>
+
+          <p style="color: var(--color-text-secondary); line-height: 1.6; margin-bottom: 30px; font-size: 0.95rem;">
+            DİM-in 1-ci qrup balları 2 mərhələ üzrə hesablanır: <strong>I Mərhələ (Buraxılış - max 300 bal)</strong> və <strong>II Mərhələ (Blok - max 400 bal)</strong>. 
+            Aşağıdakı sürgüləri tənzimləyərək hədəflərinizi müəyyən edin və ADNSU-nun müvafiq ixtisaslarına uyğunluğunuzu öyrənin.
+          </p>
+
+          <div class="calc-container">
+            
+            <div class="calc-inputs-block">
+              <!-- Category 1: Buraxılış fənləri -->
+              <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--neon-blue); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                I Mərhələ: Buraxılış İmtahanı (Maksimum 300 Bal)
+              </h4>
+              
+              <div class="calc-row-item">
+                <div class="calc-row-label">
+                  <i class="fa-solid fa-book-open"></i>
+                  <span>Azərbaycan dili</span>
+                </div>
+                <input type="range" class="calc-slider" id="calc-l1-lang" min="0" max="100" value="85">
+                <div class="calc-value-display" id="calc-l1-lang-val">85 Bal</div>
+              </div>
+
+              <div class="calc-row-item">
+                <div class="calc-row-label">
+                  <i class="fa-solid fa-square-root-variable"></i>
+                  <span>Riyaziyyat</span>
+                </div>
+                <input type="range" class="calc-slider" id="calc-l1-math" min="0" max="100" value="90">
+                <div class="calc-value-display" id="calc-l1-math-val">90 Bal</div>
+              </div>
+
+              <div class="calc-row-item">
+                <div class="calc-row-label">
+                  <i class="fa-solid fa-language"></i>
+                  <span>İngilis dili</span>
+                </div>
+                <input type="range" class="calc-slider" id="calc-l1-eng" min="0" max="100" value="85">
+                <div class="calc-value-display" id="calc-l1-eng-val">85 Bal</div>
+              </div>
+
+              <!-- Category 2: Blok fənləri -->
+              <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--neon-teal); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; margin-top: 15px;">
+                II Mərhələ: 1-ci Qrup Blok İmtahanı (Maksimum 400 Bal)
+              </h4>
+
+              <div class="calc-row-item">
+                <div class="calc-row-label">
+                  <i class="fa-solid fa-compass-drafting"></i>
+                  <span>Riyaziyyat (Blok)</span>
+                </div>
+                <input type="range" class="calc-slider" id="calc-l2-math" min="0" max="150" value="130">
+                <div class="calc-value-display" id="calc-l2-math-val">130 Bal</div>
+              </div>
+
+              <div class="calc-row-item">
+                <div class="calc-row-label">
+                  <i class="fa-solid fa-atom"></i>
+                  <span>Fizika (Blok)</span>
+                </div>
+                <input type="range" class="calc-slider" id="calc-l2-phys" min="0" max="150" value="120">
+                <div class="calc-value-display" id="calc-l2-phys-val">120 Bal</div>
+              </div>
+
+              <div class="calc-row-item">
+                <div class="calc-row-label">
+                  <i class="fa-solid fa-network-wired"></i>
+                  <span>İnformatika (Blok)</span>
+                </div>
+                <input type="range" class="calc-slider" id="calc-l2-info" min="0" max="100" value="90">
+                <div class="calc-value-display" id="calc-l2-info-val">90 Bal</div>
+              </div>
+            </div>
+
+            <!-- Results Card display -->
+            <div class="calc-results-card">
+              <div class="calc-score-circle">
+                <div class="calc-score-number" id="calc-total-score">600</div>
+                <div class="calc-score-total">700 BALDAN</div>
+              </div>
+              <h3 class="calc-status-title" id="calc-faculty-tier">Kompüter Mühəndisliyi</h3>
+              <p class="calc-status-desc" id="calc-faculty-analysis">
+                Topladığınız <strong>600 Bal</strong> ilə ADNSU-nun əksər ixtisaslarına (məsələn, İT və Kompüter Mühəndisliyi) qəbul olma şansınız çox yüksəkdir! 680 bal hədəfi üçün Riyaziyyat və Fizikadan bir az daha güclənməlisiniz.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Load Questions database -->
+  <script src="questions.js"></script>
+  <!-- Concept Explanation Modal -->
+  <div id="help-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>
+          <i class="fa-solid fa-lightbulb" style="color: var(--neon-teal); margin-right: 10px;"></i>
+          Mövzu İzahı (Başa Sal)
+        </h3>
+        <button class="modal-close-btn" id="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <p id="help-modal-concept-text"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-premium" id="btn-modal-got-it">Başa Düşdüm! 👍</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Main Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
